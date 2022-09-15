@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
+import Spinner from './Spinner'
 // import $ from 'jquery';
 // api key 843a28e0cadf4610b60e1a3abd02e496
 
@@ -57,7 +58,8 @@ export class News extends Component {
     render() {
         return (
             <div className="container " >
-                <h2>Top HeadLines</h2>
+            <h1 className="text-center">Top HeadLines</h1>
+            <h1 className="text-center"><Spinner/></h1>
 
                 <div className="row">
                     {this.state.articles.map((element) => {
