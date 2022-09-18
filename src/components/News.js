@@ -4,13 +4,13 @@ import Spinner from './Spinner'
 import PropTypes from 'prop-types'
 import InfiniteScroll from "react-infinite-scroll-component";
 // import $ from 'jquery';
-// api key 843a28e0cadf4610b60e1a3abd02e496
+// api key 1b57461e21c64c58b6afa45b42e0447e
 
 export class News extends Component {
     static defaultProps = {
         country: "in",
         pageSize: 12,
-        category: "general"
+        category: "general",
     }
     static propTypes = {
         country: PropTypes.string,
@@ -32,7 +32,7 @@ export class News extends Component {
     }
     //bhai bahut try kiya nhi ho rha tha 
     // async updateNews() {
-    //     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=843a28e0cadf4610b60e1a3abd02e496&page=${this.state.page}&pageSize=${this.props.pageSize}`
+    //     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=1b57461e21c64c58b6afa45b42e0447e&page=${this.state.page}&pageSize=${this.props.pageSize}`
     //     this.setState({loading: true})
     //     let data = await fetch(url);
     //     let parsedData = await data.json();
@@ -40,16 +40,20 @@ export class News extends Component {
     // }
 
     async componentDidMount() {
-        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=843a28e0cadf4610b60e1a3abd02e496&pageSize=${this.props.pageSize}`
-        this.setState({ loading: true })
+        this.props.setProgress(10)
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=1b57461e21c64c58b6afa45b42e0447e&pageSize=${this.props.pageSize}`
+        this.setState({ loading: true }) 
+        this.props.setProgress(30); 
         let data = await fetch(url);
         let parsedData = await data.json();
+        this.props.setProgress(70);
         this.setState({ articles: parsedData.articles, totalResults: parsedData.totalResults, loading: false });
+        this.props.setProgress(100);
 
 
     }
     // handlePrevClick = async () => {
-    //     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=843a28e0cadf4610b60e1a3abd02e496&page=${this.state.page-1}&pageSize=${this.props.pageSize}`;
+    //     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=1b57461e21c64c58b6afa45b42e0447e&page=${this.state.page-1}&pageSize=${this.props.pageSize}`;
     //     this.setState({loading: true})
     //     let data = await fetch(url);
     //     let parsedData = await data.json()
@@ -69,7 +73,7 @@ export class News extends Component {
 
     //     }
     //     else{
-    //         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=843a28e0cadf4610b60e1a3abd02e496&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
+    //         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=1b57461e21c64c58b6afa45b42e0447e&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
     //         this.setState({loading: true})
     //         let data = await fetch(url);
     //         let parsedData = await data.json()  
@@ -88,7 +92,7 @@ export class News extends Component {
     //   }
     fetchMoreData = async () => {
         this.setState({ page: this.state.page + 1 })
-        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=d093053d72bc40248998159804e0e67d&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=d093053d72bc40248998159804e0e67d&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         let parsedData = await data.json()
         this.setState({
